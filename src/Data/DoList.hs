@@ -1,5 +1,7 @@
 -- | Construct lists using do notation syntatic sugar.
 -- Example usage <https://github.com/tserduke/do-list#example>.
+--
+-- For a multifunctional alternative use Control.Monad.Writer from the mtl package.
 
 module Data.DoList
   ( DoList (DoList)
@@ -13,8 +15,9 @@ module Data.DoList
 
 import qualified Data.DList as D
 
+
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
--- It pretends being them to enable syntatic sugar of do notation.
+-- It pretends being them to enable do notation.
 -- Its result type is purely phantom.
 newtype DoList a r = DoList (D.DList a)
   deriving (Eq, Ord, Read, Show)
@@ -23,6 +26,7 @@ newtype DoList a r = DoList (D.DList a)
 {-# INLINE unDoList #-}
 unDoList :: DoList a r -> D.DList a
 unDoList (DoList x) = x
+
 
 -- | Functor operations are not supported.
 instance Functor (DoList a) where
@@ -42,15 +46,16 @@ instance Monad (DoList a) where
 
 -- | Create a 'DoList' holding a single item.
 {-# INLINE item #-}
-item :: a -> DoList a r
+item :: a -> DoList a ()
 item = DoList . D.singleton
 
--- | Convert from list.
+
+-- | Convert from a list.
 {-# INLINE fromList #-}
 fromList :: [a] -> DoList a r
 fromList = DoList . D.fromList
 
--- | Convert to list.
+-- | Convert to a list.
 {-# INLINE toList #-}
 toList :: DoList a r -> [a]
 toList = D.toList . unDoList
