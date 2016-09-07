@@ -1,6 +1,8 @@
 module Data.DoList
   ( DoList (DoList)
+  -- * Construction
   , item
+  -- * List conversion
   , fromList
   , toList
   ) where
@@ -10,6 +12,10 @@ import qualified Data.DList as D
 
 newtype DoList a r = DoList (D.DList a)
   deriving (Eq, Ord, Read, Show)
+
+{-# INLINE unDoList #-}
+unDoList :: DoList a r -> D.DList a
+unDoList (DoList x) = x
 
 
 instance Functor (DoList a) where
@@ -22,7 +28,7 @@ instance Applicative (DoList a) where
 instance Monad (DoList a) where
   (>>=) = notSupported "(>>=)"
   {-# INLINE (>>) #-}
-  (DoList xs) >> (DoList ys) = DoList $ D.append xs ys
+  (>>) (DoList x) = DoList . D.append x . unDoList
 
 
 {-# INLINE fromList #-}
@@ -31,7 +37,7 @@ fromList = DoList . D.fromList
 
 {-# INLINE toList #-}
 toList :: DoList a r -> [a]
-toList (DoList xs) = D.toList xs
+toList = D.toList . unDoList
 
 {-# INLINE item #-}
 item :: a -> DoList a r
