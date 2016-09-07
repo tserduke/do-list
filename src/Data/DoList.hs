@@ -12,10 +12,13 @@ module Data.DoList
 
 import qualified Data.DList as D
 
-
+-- | DoList is not a real instance of Monad, Applicative or Functor.
+-- It pretends being them to enable syntatic sugar of do notation.
+-- Its result type is purely phantom.
 newtype DoList a r = DoList (D.DList a)
   deriving (Eq, Ord, Read, Show)
 
+-- | Extract the underlying DList.
 {-# INLINE unDoList #-}
 unDoList :: DoList a r -> D.DList a
 unDoList (DoList x) = x
@@ -36,17 +39,20 @@ instance Monad (DoList a) where
   (>>) (DoList x) = DoList . D.append x . unDoList
 
 
+-- | Create a DoList holding a single item.
+{-# INLINE item #-}
+item :: a -> DoList a r
+item = DoList . D.singleton
+
+-- | Convert from List.
 {-# INLINE fromList #-}
 fromList :: [a] -> DoList a r
 fromList = DoList . D.fromList
 
+-- | Convert to List.
 {-# INLINE toList #-}
 toList :: DoList a r -> [a]
 toList = D.toList . unDoList
-
-{-# INLINE item #-}
-item :: a -> DoList a r
-item = DoList . D.singleton
 
 
 notSupported :: String -> a
