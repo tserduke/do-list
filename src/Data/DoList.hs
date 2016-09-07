@@ -1,4 +1,4 @@
--- | Construct lists with do notation.
+-- | Construct lists using do notation syntatic sugar. Example usage <https://github.com/tserduke/do-list>.
 
 module Data.DoList
   ( DoList (DoList)
