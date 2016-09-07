@@ -14,6 +14,7 @@ module Data.DoList
   ) where
 
 import qualified Data.DList as D
+import GHC.Exts (IsString, fromString)
 
 
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
@@ -43,10 +44,14 @@ instance Monad (DoList a) where
   {-# INLINE (>>) #-}
   (>>) (DoList x) = DoList . D.append x . unDoList
 
+instance (IsString a) => IsString (DoList a r) where
+  {-# INLINE fromString #-}
+  fromString = item . fromString
+
 
 -- | Create a 'DoList' holding a single item.
 {-# INLINE item #-}
-item :: a -> DoList a ()
+item :: a -> DoList a r
 item = DoList . D.singleton
 
 
