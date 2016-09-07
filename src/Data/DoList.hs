@@ -1,7 +1,10 @@
+-- | Construct lists with do notation.
+
 module Data.DoList
   ( DoList (DoList)
   -- * Construction
   , item
+  , unDoList
   -- * List conversion
   , fromList
   , toList
@@ -17,14 +20,16 @@ newtype DoList a r = DoList (D.DList a)
 unDoList :: DoList a r -> D.DList a
 unDoList (DoList x) = x
 
-
+-- | Functor operations are not supported.
 instance Functor (DoList a) where
   fmap = notSupported "fmap"
 
+-- | Applicative operations are not supported.
 instance Applicative (DoList a) where
   pure = notSupported "pure"
   (<*>) = notSupported "(<*>)"
 
+-- | Monadic operations are not supported.
 instance Monad (DoList a) where
   (>>=) = notSupported "(>>=)"
   {-# INLINE (>>) #-}
