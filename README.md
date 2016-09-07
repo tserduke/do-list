@@ -1,5 +1,5 @@
 # do-list
-DoList makes it easy to use do notation syntatic sugar for defining list structures.
+[DoList] makes it easy to use do notation syntatic sugar for defining list structures.
 
 ## Example
 ```haskell
@@ -17,3 +17,5 @@ main = defaultMain $ toList $ do
 doBench :: String -> Benchmarkable -> DoList Benchmark ()
 doBench name = item . bench name
 ```
+
+[DoList]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
