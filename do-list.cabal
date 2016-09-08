@@ -31,6 +31,14 @@ test-suite test
   default-language: Haskell2010
   ghc-options:      -Wall
 
+benchmark bench
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   bench
+  main-is:          Bench.hs
+  build-depends:    base < 5, criterion, do-list, mtl
+  default-language: Haskell2010
+  ghc-options:      -O2 -Wall -fno-warn-unused-do-bind
+
 source-repository head
   type:     git
   location: https://github.com/tserduke/do-list
