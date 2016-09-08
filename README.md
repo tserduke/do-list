@@ -1,5 +1,5 @@
 # do-list
-[DoList] makes it easy to use do notation syntatic sugar for defining list structures.
+[DoList] makes it easy to use do notation for defining list structures.
 
 ## Examples
 

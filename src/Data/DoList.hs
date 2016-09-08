@@ -1,4 +1,4 @@
--- | Construct lists using do notation syntatic sugar.
+-- | Construct lists using do notation.
 -- Example usage <https://github.com/tserduke/do-list#example>.
 --
 -- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
