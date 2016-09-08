@@ -7,7 +7,7 @@ module Data.DoList
   ( DoList (DoList)
   -- * Construction
   , item
-  , unDoList
+  , toDList
   -- * List conversion
   , fromList
   , toList
@@ -24,9 +24,9 @@ newtype DoList a r = DoList (D.DList a)
   deriving (Eq, Ord, Read, Show)
 
 -- | Extract the underlying 'D.DList'.
-{-# INLINE unDoList #-}
-unDoList :: DoList a r -> D.DList a
-unDoList (DoList x) = x
+{-# INLINE toDList #-}
+toDList :: DoList a r -> D.DList a
+toDList (DoList x) = x
 
 
 -- | Functor operations are not supported.
@@ -42,7 +42,7 @@ instance Applicative (DoList a) where
 instance Monad (DoList a) where
   (>>=) = notSupported "(>>=)"
   {-# INLINE (>>) #-}
-  (>>) (DoList x) = DoList . D.append x . unDoList
+  (>>) (DoList x) = DoList . D.append x . toDList
 
 instance (IsString a) => IsString (DoList a r) where
   {-# INLINE fromString #-}
@@ -63,7 +63,7 @@ fromList = DoList . D.fromList
 -- | Convert to a list.
 {-# INLINE toList #-}
 toList :: DoList a r -> [a]
-toList = D.toList . unDoList
+toList = D.toList . toDList
 
 
 notSupported :: String -> a
