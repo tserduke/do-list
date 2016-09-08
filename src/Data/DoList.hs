@@ -1,5 +1,5 @@
 -- | Construct lists using do notation.
--- Example usage <https://github.com/tserduke/do-list#example>.
+-- Example usage <https://github.com/tserduke/do-list#examples>.
 --
 -- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
 
