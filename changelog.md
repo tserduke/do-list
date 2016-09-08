@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.9.1
+* More bechmarks
+
 ## 0.9.0 (2016-09-08)
 * Changed back result type of item to polymorphic
 * Added IsString instance
