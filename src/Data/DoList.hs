@@ -1,7 +1,7 @@
 -- | Construct lists using do notation syntatic sugar.
 -- Example usage <https://github.com/tserduke/do-list#example>.
 --
--- For a multifunctional alternative use Control.Monad.Writer from the mtl package.
+-- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
 
 module Data.DoList
   ( DoList (DoList)
@@ -18,8 +18,7 @@ import GHC.Exts (IsString, fromString)
 
 
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
--- It pretends being them to enable do notation.
--- Its result type is purely phantom.
+-- It pretends being them with purely phantom result type.
 newtype DoList a r = DoList (D.DList a)
   deriving (Eq, Ord, Read, Show)
 
