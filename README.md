@@ -1,4 +1,4 @@
-# do-list
+# do-list [![Hackage][hackage-badge]][hackage]
 [DoList] makes it easy to use do notation for defining list structures.
 
 ## Examples
@@ -41,4 +41,6 @@ runLines :: DoList Text () -> Text
 runLines = unlines . toList
 ```
 
+[hackage]: https://hackage.haskell.org/package/do-list
+[hackage-badge]: https://img.shields.io/hackage/v/do-list.svg
 [DoList]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
