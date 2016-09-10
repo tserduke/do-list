@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.0
+* Added DoMonoid
+
 ## 0.9.1
 * IsList instance
 * More bechmarks
