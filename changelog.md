@@ -2,6 +2,8 @@
 
 ## 1.0.0
 * Added DoMonoid
+* Replaced DList with DoMonoid for DoList
+* Removed dependency on dlist
 
 ## 0.9.1
 * IsList instance

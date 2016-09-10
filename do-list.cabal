@@ -20,9 +20,10 @@ library
   hs-source-dirs:   src
   exposed-modules:  Data.DoList
                     Data.DoMonoid
-  build-depends:    base < 5, dlist
+  build-depends:    base < 5
   default-language: Haskell2010
-  other-extensions: TypeFamilies
+  other-extensions: GeneralizedNewtypeDeriving
+                    TypeFamilies
   ghc-options:      -Wall
 
 test-suite test

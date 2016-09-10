@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving, TypeFamilies #-}
 
 -- | Construct lists using do notation.
 -- Example usage <https://github.com/tserduke/do-list#examples>.
@@ -8,42 +8,21 @@ module Data.DoList
   ( DoList (DoList)
   -- * Construction
   , item
-  , toDList
   -- * List conversion
   , fromList
   , toList
   ) where
 
-import qualified Data.DList as D
+import Data.DoMonoid
+
 import GHC.Exts (IsList, IsString, Item, fromString)
 import qualified GHC.Exts as E (fromList, toList)
 
 
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
 -- It pretends being them with purely phantom result type.
-newtype DoList a r = DoList (D.DList a)
-  deriving (Eq, Ord, Read, Show)
-
--- | Extract the underlying 'D.DList'.
-{-# INLINE toDList #-}
-toDList :: DoList a r -> D.DList a
-toDList (DoList x) = x
-
-
--- | Functor operations are not supported.
-instance Functor (DoList a) where
-  fmap = notSupported "fmap"
-
--- | Applicative operations are not supported.
-instance Applicative (DoList a) where
-  pure = notSupported "pure"
-  (<*>) = notSupported "(<*>)"
-
--- | Monadic operations are not supported.
-instance Monad (DoList a) where
-  (>>=) = notSupported "(>>=)"
-  {-# INLINE (>>) #-}
-  (>>) (DoList x) = DoList . D.append x . toDList
+newtype DoList a r = DoList (DoMonoid [a] r)
+  deriving (Eq, Ord, Read, Show, Functor, Applicative, Monad)
 
 instance IsList (DoList a r) where
   type Item (DoList a r) = a
@@ -58,19 +37,15 @@ instance (IsString a) => IsString (DoList a r) where
 -- | Create a 'DoList' holding a single item.
 {-# INLINE item #-}
 item :: a -> DoList a r
-item = DoList . D.singleton
+item = fromList . pure
 
 
 -- | Convert from a list.
 {-# INLINE fromList #-}
 fromList :: [a] -> DoList a r
-fromList = DoList . D.fromList
+fromList = DoList . DoM
 
 -- | Convert to a list.
 {-# INLINE toList #-}
 toList :: DoList a r -> [a]
-toList = D.toList . toDList
-
-
-notSupported :: String -> a
-notSupported func = error $ "DoList " ++ func ++ " is not supported!"
+toList (DoList x) = runDoM x
