@@ -1,5 +1,3 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving, TypeFamilies #-}
-
 -- | Construct lists using do notation.
 -- Example usage <https://github.com/tserduke/do-list#examples>.
 --
@@ -24,15 +22,16 @@ import qualified GHC.Exts as E (fromList, toList)
 newtype DoList a r = DoList (DoMonoid [a] r)
   deriving (Eq, Ord, Read, Show, Functor, Applicative, Monad)
 
-instance IsList (DoList a r) where
-  type Item (DoList a r) = a
-  fromList = fromList
-  toList = toList
-
 instance (IsString a) => IsString (DoList a r) where
   {-# INLINE fromString #-}
   fromString = item . fromString
 
+instance IsList (DoList a r) where
+  type Item (DoList a r) = a
+  {-# INLINE fromList #-}
+  fromList = fromList
+  {-# INLINE toList #-}
+  toList = toList
 
 -- | Create a 'DoList' holding a single item.
 {-# INLINE item #-}

@@ -3,11 +3,11 @@ module Data.DoMonoid
   , runDoM
   ) where
 
-import GHC.Exts (IsString, fromString)
+import GHC.Exts (IsList, IsString, Item, fromList, toList)
 
 
 newtype DoMonoid m r = DoM m
-  deriving (Eq, Ord, Read, Show)
+  deriving (Eq, Ord, Read, Show, IsString)
 
 -- | Unwrap the monoid.
 {-# INLINE runDoM #-}
@@ -30,9 +30,12 @@ instance (Monoid a) => Monad (DoMonoid a) where
   {-# INLINE (>>) #-}
   (DoM x) >> (DoM y) = DoM $ x `mappend` y
 
-instance (IsString a) => IsString (DoMonoid a r) where
-  {-# INLINE fromString #-}
-  fromString = DoM . fromString
+instance (IsList m) => IsList (DoMonoid m r) where
+  type Item (DoMonoid m r) = Item m
+  {-# INLINE fromList #-}
+  fromList = DoM . fromList
+  {-# INLINE toList #-}
+  toList = toList . runDoM
 
 
 notSupported :: String -> a
