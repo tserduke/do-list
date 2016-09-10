@@ -21,6 +21,7 @@ library
   exposed-modules:  Data.DoList
   build-depends:    base < 5, dlist
   default-language: Haskell2010
+  other-extensions: TypeFamilies
   ghc-options:      -Wall
 
 test-suite test

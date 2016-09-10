@@ -1,8 +1,9 @@
+{-# LANGUAGE TypeFamilies #-}
+
 -- | Construct lists using do notation.
 -- Example usage <https://github.com/tserduke/do-list#examples>.
 --
 -- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
-
 module Data.DoList
   ( DoList (DoList)
   -- * Construction
@@ -14,7 +15,8 @@ module Data.DoList
   ) where
 
 import qualified Data.DList as D
-import GHC.Exts (IsString, fromString)
+import GHC.Exts (IsList, IsString, Item, fromString)
+import qualified GHC.Exts as E (fromList, toList)
 
 
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
@@ -42,6 +44,11 @@ instance Monad (DoList a) where
   (>>=) = notSupported "(>>=)"
   {-# INLINE (>>) #-}
   (>>) (DoList x) = DoList . D.append x . toDList
+
+instance IsList (DoList a r) where
+  type Item (DoList a r) = a
+  fromList = fromList
+  toList = toList
 
 instance (IsString a) => IsString (DoList a r) where
   {-# INLINE fromString #-}

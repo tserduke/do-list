@@ -1,6 +1,7 @@
 # Change Log
 
 ## 0.9.1
+* IsList instance
 * More bechmarks
 
 ## 0.9.0 (2016-09-08)
