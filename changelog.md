@@ -1,9 +1,15 @@
 # Change Log
 
 ## 1.0.0
-* Added DoMonoid
-* Replaced DList with DoMonoid for DoList
+* Added DoMonoid with IsString and IsList instances
+* Replaced DList with DoMonoid for DoList -> better performance
+* Removed toDList function
 * Removed dependency on dlist
+* Added more usage examples
+* Better readme
+* More benchmarks
+* Documentation edits
+* Added Hackage badge
 
 ## 0.9.1
 * IsList instance
