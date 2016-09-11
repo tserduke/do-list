@@ -14,27 +14,8 @@ main = defaultMain $ toList $ do
     whnfBench "DoList"   (sumList   1 2 3 4) 5
     whnfBench "DoMonoid" (sumMonoid 1 2 3 4) 5
   benchGroup "List" $ do
-    whnfBench "Writer" (last . execWriter) $ do
-      tell [1 :: Int]
-      tell [2]
-      tell [3]
-      tell [4]
-      tell [5]
-    whnfBench "DoList" (last . toList) $ do
-      item (1 :: Int)
-      item 2
-      item 3
-      item 4
-      item 5
-  benchGroup "Combined List" $ do
-    whnfBench "Writer" (last . execWriter) $ do
-      tell [1 :: Int, 2, 3]
-      tell [4, 5, 6]
-      tell [7, 8, 9]
-    whnfBench "DoList" (last . toList) $ do
-      fromList [1 :: Int, 2, 3]
-      fromList [3, 4, 5]
-      fromList [7, 9, 9]
+    whnfBench "Writer" (last . listWriter 1 2 3 4) 5
+    whnfBench "DoList" (last . listList   1 2 3 4) 5
 
 
 sumWriter, sumList, sumMonoid :: Int -> Int -> Int -> Int -> Int -> Sum Int
@@ -62,6 +43,25 @@ sumMonoid x1 x2 x3 x4 x5 = runDoM $ do
   DoM $ Sum x3
   DoM $ Sum x4
   DoM $ Sum x5
+
+
+listWriter, listList :: Int -> Int -> Int -> Int -> Int -> [Int]
+
+{-# NOINLINE listWriter #-}
+listWriter x1 x2 x3 x4 x5 = execWriter $ do
+  tell [x1]
+  tell [x2]
+  tell [x3]
+  tell [x4]
+  tell [x5]
+
+{-# NOINLINE listList #-}
+listList x1 x2 x3 x4 x5 = toList $ do
+  item x1
+  item x2
+  item x3
+  item x4
+  item x5
 
 
 benchGroup :: String -> DoList Benchmark -> DoList Benchmark
