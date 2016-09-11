@@ -4,23 +4,15 @@ import Criterion.Main
 
 import Control.Monad.Writer
 import Data.DoList
+import Data.DoMonoid
 
 
 main :: IO ()
 main = defaultMain $ toList $ do
   benchGroup "Sum" $ do
-    whnfBench "Writer" execWriter $ do
-      tell $ Sum (1 :: Int)
-      tell $ Sum 2
-      tell $ Sum 3
-      tell $ Sum 4
-      tell $ Sum 5
-    whnfBench "DoList" (mconcat . toList) $ do
-      item $ Sum (1 :: Int)
-      item $ Sum 2
-      item $ Sum 3
-      item $ Sum 4
-      item $ Sum 5
+    whnfBench "Writer"   (sumWriter 1 2 3 4) 5
+    whnfBench "DoList"   (sumList   1 2 3 4) 5
+    whnfBench "DoMonoid" (sumMonoid 1 2 3 4) 5
   benchGroup "List" $ do
     whnfBench "Writer" (last . execWriter) $ do
       tell [1 :: Int]
@@ -43,6 +35,33 @@ main = defaultMain $ toList $ do
       fromList [1 :: Int, 2, 3]
       fromList [3, 4, 5]
       fromList [7, 9, 9]
+
+
+sumWriter, sumList, sumMonoid :: Int -> Int -> Int -> Int -> Int -> Sum Int
+
+{-# NOINLINE sumWriter #-}
+sumWriter x1 x2 x3 x4 x5 = execWriter $ do
+  tell $ Sum x1
+  tell $ Sum x2
+  tell $ Sum x3
+  tell $ Sum x4
+  tell $ Sum x5
+
+{-# NOINLINE sumList #-}
+sumList x1 x2 x3 x4 x5 = mconcat $ toList $ do
+  item $ Sum x1
+  item $ Sum x2
+  item $ Sum x3
+  item $ Sum x4
+  item $ Sum x5
+
+{-# NOINLINE sumMonoid #-}
+sumMonoid x1 x2 x3 x4 x5 = runDoM $ do
+  DoM $ Sum x1
+  DoM $ Sum x2
+  DoM $ Sum x3
+  DoM $ Sum x4
+  DoM $ Sum x5
 
 
 benchGroup :: String -> DoList Benchmark -> DoList Benchmark
