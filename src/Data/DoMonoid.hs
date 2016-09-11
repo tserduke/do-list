@@ -1,37 +1,40 @@
 module Data.DoMonoid
-  ( DoMonoid (DoM)
+  ( DoMonoid
+  , DoMonoidM (DoM)
   , runDoM
   ) where
 
 import GHC.Exts (IsList, IsString, Item, fromList, toList)
 
 
-newtype DoMonoid m r = DoM m
+type DoMonoid m = DoMonoidM m ()
+
+newtype DoMonoidM m r = DoM m
   deriving (Eq, Ord, Read, Show, IsString)
 
 -- | Unwrap the monoid.
 {-# INLINE runDoM #-}
-runDoM :: DoMonoid m r -> m
+runDoM :: DoMonoidM m r -> m
 runDoM (DoM x) = x
 
 
 -- | Functor operations are not supported.
-instance Functor (DoMonoid a) where
+instance Functor (DoMonoidM a) where
   fmap = notSupported "fmap"
 
 -- | Applicative operations are not supported.
-instance Applicative (DoMonoid a) where
+instance Applicative (DoMonoidM a) where
   pure = notSupported "pure"
   (<*>) = notSupported "(<*>)"
 
 -- | Monadic operations are not supported.
-instance (Monoid a) => Monad (DoMonoid a) where
+instance (Monoid a) => Monad (DoMonoidM a) where
   (>>=) = notSupported "(>>=)"
   {-# INLINE (>>) #-}
   (DoM x) >> (DoM y) = DoM $ x `mappend` y
 
-instance (IsList m) => IsList (DoMonoid m r) where
-  type Item (DoMonoid m r) = Item m
+instance (IsList m) => IsList (DoMonoidM m r) where
+  type Item (DoMonoidM m r) = Item m
   {-# INLINE fromList #-}
   fromList = DoM . fromList
   {-# INLINE toList #-}

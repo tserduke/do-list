@@ -13,5 +13,5 @@ main = putStr $ runLines $ do
   "fib 1 = 1"
   "fib n = fib (n-1) + fib (n-2)"
 
-runLines :: DoList Text () -> Text
+runLines :: DoList Text -> Text
 runLines = unlines . toList

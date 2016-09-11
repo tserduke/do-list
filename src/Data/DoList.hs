@@ -3,7 +3,8 @@
 --
 -- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
 module Data.DoList
-  ( DoList (DoList)
+  ( DoList
+  , DoListM (DoList)
   -- * Construction
   , item
   -- * List conversion
@@ -17,17 +18,19 @@ import GHC.Exts (IsList, IsString, Item, fromString)
 import qualified GHC.Exts as E (fromList, toList)
 
 
+type DoList a = DoListM a ()
+
 -- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
 -- It pretends being them with purely phantom result type.
-newtype DoList a r = DoList (DoMonoid [a] r)
+newtype DoListM a r = DoList (DoMonoidM [a] r)
   deriving (Eq, Ord, Read, Show, Functor, Applicative, Monad)
 
-instance (IsString a) => IsString (DoList a r) where
+instance (IsString a) => IsString (DoListM a r) where
   {-# INLINE fromString #-}
   fromString = item . fromString
 
-instance IsList (DoList a r) where
-  type Item (DoList a r) = a
+instance IsList (DoListM a r) where
+  type Item (DoListM a r) = a
   {-# INLINE fromList #-}
   fromList = fromList
   {-# INLINE toList #-}
@@ -35,16 +38,16 @@ instance IsList (DoList a r) where
 
 -- | Create a 'DoList' holding a single item.
 {-# INLINE item #-}
-item :: a -> DoList a r
+item :: a -> DoListM a r
 item = fromList . pure
 
 
 -- | Convert from a list.
 {-# INLINE fromList #-}
-fromList :: [a] -> DoList a r
+fromList :: [a] -> DoListM a r
 fromList = DoList . DoM
 
 -- | Convert to a list.
 {-# INLINE toList #-}
-toList :: DoList a r -> [a]
+toList :: DoListM a r -> [a]
 toList (DoList x) = runDoM x

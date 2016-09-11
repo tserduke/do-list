@@ -9,5 +9,5 @@ main = defaultMain $ toList $ do
   doBench "minus" $ whnf (2 -) (1 :: Int)
 
 -- Now we can define benchmarks with do notation.
-doBench :: String -> Benchmarkable -> DoList Benchmark ()
+doBench :: String -> Benchmarkable -> DoList Benchmark
 doBench name = item . bench name
