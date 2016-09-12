@@ -1,7 +1,5 @@
--- | Construct lists using do notation.
--- Example usage <https://github.com/tserduke/do-list#examples>.
---
--- Control.Monad.Writer from the mtl package provides a somewhat faster yet less flexible Monoid-based alternative.
+-- | Construct lists with do notation.
+-- For more information see <https://github.com/tserduke/do-list#readme>.
 module Data.DoList
   ( DoList
   , DoListM (DoList)
@@ -18,10 +16,11 @@ import GHC.Exts (IsList, IsString, Item, fromString)
 import qualified GHC.Exts as E (fromList, toList)
 
 
+-- | The type shortcut.
 type DoList a = DoListM a ()
 
--- | 'DoList' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
--- It pretends being them with purely phantom result type.
+-- | 'DoListM' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
+-- It pretends being them with a phantom result type.
 newtype DoListM a r = DoList (DoMonoidM [a] r)
   deriving (Eq, Ord, Read, Show, Functor, Applicative, Monad)
 

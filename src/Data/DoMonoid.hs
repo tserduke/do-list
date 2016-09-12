@@ -1,3 +1,5 @@
+-- | Construct monoids with do notation.
+-- For more information see <https://github.com/tserduke/do-list#readme>.
 module Data.DoMonoid
   ( DoMonoid
   , DoMonoidM (DoM)
@@ -7,8 +9,11 @@ module Data.DoMonoid
 import GHC.Exts (IsList, IsString, Item, fromList, toList)
 
 
+-- | The type shortcut.
 type DoMonoid m = DoMonoidM m ()
 
+-- | 'DoMonoidM' is not a real instance of 'Monad', 'Applicative' or 'Functor'.
+-- It pretends being them with a phantom result type.
 newtype DoMonoidM m r = DoM m
   deriving (Eq, Ord, Read, Show, IsString)
 
