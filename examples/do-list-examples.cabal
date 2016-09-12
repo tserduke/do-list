@@ -16,3 +16,10 @@ executable do-list-example-text
   build-depends:    base, do-list, text
   default-language: Haskell2010
   ghc-options:      -Wall
+
+executable do-list-example-indentation
+  hs-source-dirs:   .
+  main-is:          Indentation.hs
+  build-depends:    base, do-list, text
+  default-language: Haskell2010
+  ghc-options:      -Wall
