@@ -22,23 +22,19 @@ doBench name = item . bench name
 
 ### Multiline Text
 ```haskell
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -fno-warn-unused-do-bind #-}
 
 module Main (main) where
 
-import BasicPrelude
-import Data.DoList (DoList, toList)
+import Data.DoMonoid (runDoM)
+import Data.Text.IO as T (putStr)
 
 main :: IO ()
-main = putStr $ runLines $ do
-  "fib 0 = 0"
-  "fib 1 = 1"
-  "fib n = fib (n-1) + fib (n-2)"
-
-runLines :: DoList Text () -> Text
-runLines = unlines . toList
+main = T.putStr $ runDoM $ do
+  "fib 0 = 0\n"
+  "fib 1 = 1\n"
+  "fib n = fib (n-1) + fib (n-2)\n"
 ```
 
 [hackage]: https://hackage.haskell.org/package/do-list

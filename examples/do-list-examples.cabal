@@ -13,6 +13,6 @@ executable do-list-example-bench
 executable do-list-example-text
   hs-source-dirs:   .
   main-is:          Text.hs
-  build-depends:    basic-prelude, do-list
+  build-depends:    base, do-list, text
   default-language: Haskell2010
   ghc-options:      -Wall
