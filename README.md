@@ -77,6 +77,6 @@ indent = fromList . map (append "  ") . toList
 
 [do-list]: https://hackage.haskell.org/package/do-list
 [hackage]: https://img.shields.io/hackage/v/do-list.svg
-[DoList]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
-[DoMonoid]: https://hackage.haskell.org/package/do-list/docs/Data-DoMonoid.html
-[Writer]: https://hackage.haskell.org/package/transformers/docs/Control-Monad-Trans-Writer-Lazy.html
+[`DoList`]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
+[`DoMonoid`]: https://hackage.haskell.org/package/do-list/docs/Data-DoMonoid.html
+[`Writer`]: https://hackage.haskell.org/package/transformers/docs/Control-Monad-Trans-Writer-Lazy.html
