@@ -19,4 +19,5 @@ main = T.putStr $ T.unlines $ toList $ do
     "3. Item 3"
 
 indent :: DoList Text -> DoList Text
+-- fromList and toList are no-ops
 indent = fromList . map (append "  ") . toList

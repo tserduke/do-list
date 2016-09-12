@@ -4,7 +4,7 @@ Do notation for free.
 ## Summary
 [do-list] makes it easy to use do notation. You can construct lists or monoids using [`DoList`] or [`DoMonoid`] modules respectively. [do-list] is designed to work well with `OverloadedStrings` and `OverloadedLists` extensions. See examples.
 
-There is also a more canonical [`Writer`] without overloading support.
+As alternative there is a canonical [`Writer`] without overloading support.
 
 ## Examples
 
@@ -21,15 +21,16 @@ main :: IO ()
 main = defaultMain $ toList $ do
   doBench "add"  $ whnf (2 +) (1 :: Int)
   doBench "sub" $ whnf (2 -) (1 :: Int)
+  -- Regular criterion benchmarks are injected via list overloading
   [multBench, divBench]
-
--- Now we can define benchmarks with do notation.
-doBench :: String -> Benchmarkable -> DoList Benchmark
-doBench name = item . bench name
 
 multBench, divBench :: Benchmark
 multBench = bench "mult" $ whnf (2 *) (2 :: Int)
 divBench = bench "div" $ whnf (2 `div`) (2 :: Int)
+
+-- Now we can define benchmarks with do notation.
+doBench :: String -> Benchmarkable -> DoList Benchmark
+doBench name = item . bench name
 ```
 
 ### Multiline Text
@@ -44,6 +45,7 @@ import Data.Text.IO as T (putStr)
 
 main :: IO ()
 main = T.putStr $ runDoM $ do
+  -- Lines are combined using Text.append
   "fib 0 = 0\n"
   "fib 1 = 1\n"
   "fib n = fib (n-1) + fib (n-2)\n"
@@ -72,6 +74,7 @@ main = T.putStr $ T.unlines $ toList $ do
     "3. Item 3"
 
 indent :: DoList Text -> DoList Text
+-- fromList and toList are no-ops
 indent = fromList . map (append "  ") . toList
 ```
 

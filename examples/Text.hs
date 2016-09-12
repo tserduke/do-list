@@ -8,6 +8,7 @@ import Data.Text.IO as T (putStr)
 
 main :: IO ()
 main = T.putStr $ runDoM $ do
+  -- Lines are combined using Text.append
   "fib 0 = 0\n"
   "fib 1 = 1\n"
   "fib n = fib (n-1) + fib (n-2)\n"
