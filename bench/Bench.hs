@@ -72,15 +72,14 @@ listList x1 x2 x3 x4 x5 = toList $ do
 linesWriter, linesList, linesMonoid :: Text -> Text -> Text -> Text
 
 {-# NOINLINE linesWriter #-}
-linesWriter x1 x2 x3 = x `seq` x where
-  x = execWriter $ do
-    tell x1
-    tell x2
-    tell x3
+linesWriter x1 x2 x3 = execWriter $ do
+  tell x1
+  tell x2
+  tell x3
 
 {-# NOINLINE linesList #-}
-linesList x1 x2 x3 = T.unlines $ toList $ do
-  item x1
+linesList x' x2 x3 = T.unlines $ toList $ do
+  item x'
   item x2
   item x3
 
