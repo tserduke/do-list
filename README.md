@@ -1,5 +1,10 @@
-# do-list [![Hackage][hackage-badge]][hackage]
-[DoList] makes it easy to use do notation for defining list structures.
+# do-list [![Hackage][hackage]][do-list]
+Do notation for free.
+
+## Summary
+[do-list] makes it easy to use do notation. You can construct lists or monoids using [`DoList`] or [`DoMonoid`] modules respectively. [do-list] is designed to work well with `OverloadedStrings` and `OverloadedLists` extensions. See examples.
+
+There is also a more canonical [`Writer`] without overloading support.
 
 ## Examples
 
@@ -70,6 +75,8 @@ indent :: DoList Text -> DoList Text
 indent = fromList . map (append "  ") . toList
 ```
 
-[hackage]: https://hackage.haskell.org/package/do-list
-[hackage-badge]: https://img.shields.io/hackage/v/do-list.svg
+[do-list]: https://hackage.haskell.org/package/do-list
+[hackage]: https://img.shields.io/hackage/v/do-list.svg
 [DoList]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
+[DoMonoid]: https://hackage.haskell.org/package/do-list/docs/Data-DoMonoid.html
+[Writer]: https://hackage.haskell.org/package/transformers/docs/Control-Monad-Trans-Writer-Lazy.html
