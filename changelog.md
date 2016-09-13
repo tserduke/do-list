@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.0.1
+
 ## 1.0.0
 * Added DoMonoid with IsString and IsList instances
 * Replaced DList with DoMonoid for DoList -> better performance
