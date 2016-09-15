@@ -1,4 +1,4 @@
-# do-list [![Hackage][hackage]][do-list]
+# do-list [![do-list][stackage-badge]][do-list] [![do-list][hackage-badge]][hackage]
 Do notation for free.
 
 ## Summary
@@ -78,8 +78,10 @@ indent :: DoList Text -> DoList Text
 indent = fromList . map (append "  ") . toList
 ```
 
-[do-list]: https://hackage.haskell.org/package/do-list
-[hackage]: https://img.shields.io/hackage/v/do-list.svg
+[do-list]: https://www.stackage.org/package/do-list
+[hackage]: https://hackage.haskell.org/package/do-list
+[hackage-badge]: https://img.shields.io/hackage/v/do-list.svg
+[stackage-badge]: https://www.stackage.org/package/do-list/badge/lts
 [`DoList`]: https://hackage.haskell.org/package/do-list/docs/Data-DoList.html
 [`DoMonoid`]: https://hackage.haskell.org/package/do-list/docs/Data-DoMonoid.html
 [`Writer`]: https://hackage.haskell.org/package/transformers/docs/Control-Monad-Trans-Writer-Lazy.html
