@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.0.1
+* Links to Stackage in readme
 
 ## 1.0.0
 * Added DoMonoid with IsString and IsList instances
