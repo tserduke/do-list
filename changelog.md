@@ -1,9 +1,9 @@
 # Change Log
 
-## 1.0.1
+## 1.0.1 ???
 * Links to Stackage in readme
 
-## 1.0.0
+## 1.0.0 (2016-09-12)
 * Added DoMonoid with IsString and IsList instances
 * Replaced DList with DoMonoid for DoList -> better performance
 * Removed toDList function
@@ -14,7 +14,7 @@
 * Documentation edits
 * Added Hackage badge
 
-## 0.9.1
+## 0.9.1 (2016-09-10)
 * IsList instance
 * More bechmarks
 
