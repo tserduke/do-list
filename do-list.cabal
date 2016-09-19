@@ -10,15 +10,14 @@ author:               Taras Serduke
 maintainer:           taras.serduke@gmail.com
 copyright:            2016 Taras Serduke
 category:             Data, List, Syntax
-stability:            experimental
 build-type:           Simple
 cabal-version:        >= 1.10
-extra-source-files:   README.md
+extra-doc-files:      README.md
                       changelog.md
 
 source-repository head
-  type:     git
-  location: https://github.com/tserduke/do-list
+  type:               git
+  location:           https://github.com/tserduke/do-list.git
 
 
 library

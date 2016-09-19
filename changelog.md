@@ -1,7 +1,8 @@
 # Change Log
 
-## 1.0.1 ???
+## 1.0.1 (2016-09-19)
 * Links to Stackage in readme
+* Minor cabal package fixes
 
 ## 1.0.0 (2016-09-12)
 * Added DoMonoid with IsString and IsList instances
